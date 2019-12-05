@@ -1,7 +1,7 @@
 {
   "name": "App",
   "engines": {
-    "node": "8.1.x"
+    "node": "10.15.2"
   },
   "scripts": {
     "postinstall": "export NPM_CONFIG_PRODUCTION=false && npm install --prefix api && npm install --prefix front && npm run prod --prefix api && npm run build --prefix front -- --prod && mv front/build api/dist/public"
