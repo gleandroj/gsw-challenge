@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: /home/deploy/app
+    working_directory: ~/repo
     docker:
     - image: circleci/node:7.10
       environment:
@@ -38,9 +38,9 @@ jobs:
         name: Test Backend
         command: echo "TODO"
   deployment:
-    working_directory: /home/deploy/app
+    working_directory: ~/repo
     docker:
-    - image: gleandroj/laravel
+    - image: circleci/node:7.10
     environment:
       BASH_ENV: ~/.bashrc
       HEROKU_APP_NAME: "gsw-challenge-app"
@@ -48,7 +48,7 @@ jobs:
     - checkout
     - run:
         name: Setup Heroku
-        command: bash /home/deploy/app/.circleci/setup-heroku.sh
+        command: bash ~/repo/.circleci/setup-heroku.sh
     - run:
         name: Add Heroku to known_hosts
         command: ssh-keyscan -H heroku.com >> ~/.ssh/known_hosts
