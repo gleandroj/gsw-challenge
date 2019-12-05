@@ -1,9 +1,9 @@
 import { Router } from "express";
 const router = Router();
 
-/* GET home page. */
-router.get("/", function(req, res, next) {
-  res.json({ title: "Express" });
+router.post("/api/convert", function(req, res, next) {
+  const { code, message } = req.body;
+  res.json({ code, message });
 });
 
 export default router;
