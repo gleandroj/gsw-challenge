@@ -1,18 +1,32 @@
-import { CLICK_CONVERT_VALUE } from "../actions/actionTypes";
+import { FETCH_CONVERT_PENDING, FETCH_CONVERT_SUCCESS, FETCH_CONVERT_ERROR } from "../actions/actionTypes";
 
 const initialState = {
   code: "",
-  message: ""
+  message: "",
+  pending: false,
+  error: null
 };
 
 export const convertReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CLICK_CONVERT_VALUE:
-      const hasCode = !!action.code;
+    case FETCH_CONVERT_ERROR:
       return {
         ...state,
-        code: hasCode ? action.code : action.message,
-        message: hasCode ? action.code : action.message
+        pending: false,
+        error: action.error
+      };
+    case FETCH_CONVERT_PENDING:
+      return {
+        ...state,
+        pending: true
+      };
+    case FETCH_CONVERT_SUCCESS:
+      return {
+        ...state,
+        code: action.code,
+        message: action.message,
+        pending: false,
+        error: null
       };
     default:
       return state;
