@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node_modules/.bin/babel-node ./index.js",
-    "test": "node_modules/.bin/mocha --require babel-register tests/*.js --exit",
-    "dev": "node_modules/.bin/nodemon --exec babel-node --presets babel-preset-env ./index.js",
+    "start": "./node_modules/.bin/babel-node ./index.js",
+    "test": "./node_modules/.bin/mocha --require babel-register tests/*.js --exit",
+    "dev": "./node_modules/.bin/nodemon --exec babel-node --presets babel-preset-env ./index.js",
     "server:prod": "node ./dist/index.js",
     "clean": "rm -rf dist",
-    "build": "node_modules/.bin/babel ./src --out-dir dist",
+    "build": "./node_modules/.bin/babel ./src --out-dir dist",
     "prod": "export NODE_ENV=production && npm run clean && npm run build"
   },
   "dependencies": {
