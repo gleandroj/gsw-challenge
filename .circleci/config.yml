@@ -19,8 +19,7 @@ jobs:
         command: npm install
         working_directory: ~/repo/front
     - run:
-    - run:
-        name: Build Frontend
+        name: Build Frontend Front
         command: echo "TODO"
         working_directory: ~/repo/front
     - run:
@@ -28,7 +27,7 @@ jobs:
         command: echo "TODO"
         working_directory: ~/repo/front
     - run:
-        name: Npm Install
+        name: Npm Install Api
         command: npm install
         working_directory: ~/repo/api
     - run:
