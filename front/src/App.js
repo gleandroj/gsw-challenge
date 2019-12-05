@@ -45,7 +45,6 @@ const classes = theme => ({
 class App extends Component {
   render() {
     const { classes, convertValues, pending, ...formValue } = this.props;
-    console.log(formValue);
     return (
       <div className={classes.root}>
         <CssBaseline />
