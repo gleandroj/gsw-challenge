@@ -17,8 +17,9 @@ const convertValuesError = () => ({
   }
 });
 
-//TODO: Remove
-const API_URL = `http://localhost:8000/api/convert`;
+
+const PREFIX = process.env.NODE_ENV == 'production' ? 'http://localhost:8000' : ''
+const API_URL = `${PREFIX}/api/convert`;
 
 export const convertValues = ({ code, message }) => {
   return dispatch => {
