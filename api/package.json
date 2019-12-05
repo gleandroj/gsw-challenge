@@ -5,7 +5,11 @@
   "scripts": {
     "start": "babel-node ./index.js",
     "test": "mocha --require babel-register tests/*.js --exit",
-    "dev": "nodemon --exec babel-node --presets babel-preset-env ./index.js"
+    "dev": "nodemon --exec babel-node --presets babel-preset-env ./index.js",
+    "server:prod": "node ./dist/index.js",
+    "clean": "rm -rf dist",
+    "build": "babel ./src --out-dir dist",
+    "prod": "export NODE_ENV=production && npm run clean && npm run build && npm run server:prod"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
