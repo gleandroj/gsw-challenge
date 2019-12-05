@@ -1,7 +1,40 @@
-import { CLICK_CONVERT_VALUE } from "./actionTypes";
+import { FETCH_CONVERT_PENDING, FETCH_CONVERT_SUCCESS, FETCH_CONVERT_ERROR } from "./actionTypes";
 
-export const convertValues = ({ code, message }) => ({
-  type: CLICK_CONVERT_VALUE,
-  code: code,
-  message: message
+const convertValuesPending = () => ({
+  type: FETCH_CONVERT_PENDING
 });
+
+const convertValuesSuccess = ({ message, code }) => ({
+  type: FETCH_CONVERT_SUCCESS,
+  code,
+  message
+});
+
+const convertValuesError = () => ({
+  type: FETCH_CONVERT_ERROR,
+  error: {
+    message: "Oops! Algo deu errado."
+  }
+});
+
+//TODO: Remove
+const API_URL = `http://localhost:8000/api/convert`;
+
+export const convertValues = ({ code, message }) => {
+  return dispatch => {
+    dispatch(convertValuesPending());
+
+    fetch(API_URL, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ code, message })
+    })
+      .then(res => res.json())
+      .then(res => dispatch(convertValuesSuccess(res)))
+      .catch(error => console.log(error));
+
+  };
+};
