@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Form, TopBar } from "./components";
 
 const classes = theme => ({
@@ -19,29 +20,49 @@ const classes = theme => ({
   },
   container: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(4),
   },
   paper: {
     display: "flex",
     overflow: "auto",
-    flexDirection: "column"
+    flexDirection: "column",
+    position: "relative"
+  },
+  loadingContainer: {
+    position: "absolute",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 0,
+    zIndex: 10,
+    backgroundColor: 'rgba(255, 255, 255, .9)',
+    height: "100%",
+    width: "100%"
   }
 });
 
 class App extends Component {
   render() {
-    const { classes, convertValues, ...formValue } = this.props;
+    const { classes, convertValues, pending, ...formValue } = this.props;
+    console.log(formValue);
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <main className={classes.content}>
+        <div className={classes.content}>
           <Container maxWidth="lg" className={classes.container}>
             <Paper className={classes.paper}>
               <TopBar />
               <Form onSubmit={convertValues} value={formValue} />
+              {
+                pending ? <div className={classes.loadingContainer}>
+                  <CircularProgress />
+                  <span>Carregando...</span>
+                </div> : []
+              }
             </Paper>
           </Container>
-        </main>
+        </div>
       </div>
     );
   }
@@ -49,7 +70,9 @@ class App extends Component {
 
 const mapStateToProps = store => ({
   code: store.convertState.code,
-  message: store.convertState.message
+  message: store.convertState.message,
+  pending: store.convertState.pending,
+  error: store.convertState.error
 });
 
 const mapDispatchToProps = dispatch =>
