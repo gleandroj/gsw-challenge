@@ -9,7 +9,7 @@
     "server:prod": "node ./dist/index.js",
     "clean": "rm -rf dist",
     "build": "babel ./src --out-dir dist",
-    "prod": "export NODE_ENV=production && npm run clean && npm run build && npm run server:prod"
+    "prod": "export NODE_ENV=production && npm run clean && npm run build"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
