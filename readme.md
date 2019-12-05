@@ -1,5 +1,7 @@
 ### Instruções
 
+[![CircleCI](https://circleci.com/gh/gleandroj/gsw-challenge.svg?style=svg)](https://circleci.com/gh/gleandroj/gsw-challenge)
+
 ### Desafio
 
 Concluir os seguintes cursos na freecodecamp, e mandar o print de conclusão: 
