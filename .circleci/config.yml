@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /home/deploy/app
     docker:
-    - image: gleandroj/laravel
+    - image: circleci/node:7.10
       environment:
         APP_ENV: testing
     # - image: circleci/postgres:9.6
@@ -24,7 +24,7 @@ jobs:
     - save_cache:
         key: node-v1-{{ checksum "package.json" }}
         paths:
-        - ./node_modules
+          - ./node_modules
     - run:
         name: Build Frontend
         command: echo "TODO"
