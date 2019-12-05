@@ -101,7 +101,7 @@ const MaterialForm = (props) => {
 
 class Form extends Component {
   render() {
-    const { value, onSubmit } = this.props;
+    const { value = {}, onSubmit } = this.props;
     return (
       <Formik
         enableReinitialize={true}
