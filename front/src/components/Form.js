@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import { Formik } from "formik";
+import * as Yup from "yup"
 
 const classes = theme => ({
   form: {
@@ -19,104 +21,98 @@ const classes = theme => ({
   }
 });
 
-class Form extends Component {
-  state = {
-    code: "",
-    message: ""
+const useStyle = makeStyles(classes);
+
+const validationSchema = Yup.object({
+  code: Yup.string(),
+  message: Yup.string().when('code', {
+    is: code => !code || code.length === 0,
+    then: Yup.string()
+      .required('Digite a mensagem ou o código.')
+      .typeError('Digite a mensagem ou o código.'),
+    otherwise: Yup.string()
+  })
+});
+
+const MaterialForm = (props) => {
+
+  const {
+    values: { code, message },
+    errors,
+    touched,
+    handleSubmit,
+    handleChange,
+    isValid,
+    setFieldTouched
+  } = props;
+
+  const classes = useStyle();
+
+  const change = (name, e) => {
+    e.persist();
+    handleChange(e);
+    setFieldTouched(name, true, false);
   };
 
-  componentDidMount() {
-    const { value = {} } = this.props;
-    const { code = "", message = "" } = value;
-    this.setState({
-      code,
-      message
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { value = {} } = this.props;
-    const { code = "", message = "" } = value;
-    const prevValue = prevProps.value;
-
-    if (
-      prevValue &&
-      (code != prevValue.code || message !== prevValue.message)
-    ) {
-      this.setState({
-        ...this.state,
-        code,
-        message
-      });
-    }
-  }
-
-  setCode = event => {
-    this.setState({
-      ...this.state,
-      code: event.target.value
-    });
-  };
-
-  setMessage = event => {
-    this.setState({
-      ...this.state,
-      message: event.target.value
-    });
-  };
-
-  onSubmit = event => {
-    event.preventDefault();
-    const { onSubmit } = this.props;
-    if (onSubmit) {
-      onSubmit(this.state);
-    }
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { code = "", message = "" } = this.state;
-
-    return (
-      <form
-        onSubmit={this.onSubmit}
-        className={classes.form}
-        noValidate
-        autoComplete="off"
+  return (<form
+    onSubmit={handleSubmit}
+    className={classes.form}
+    noValidate
+    autoComplete="off"
+  >
+    <TextField
+      id="code"
+      label="Código"
+      variant="filled"
+      helperText={touched.code ? errors.code : ""}
+      error={!isValid}
+      value={code}
+      onChange={change.bind(null, "code")}
+      fullWidth
+      multiline={true}
+      rows={4}
+    />
+    <div className={classes.buttonContainer}>
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        disabled={!isValid}
+        endIcon={<Icon>compare_arrows</Icon>}
       >
-        <TextField
-          id="code"
-          label="Código"
-          variant="filled"
-          multiline={true}
-          rows={4}
-          inputProps={{ maxLength: 255 }}
-          value={code}
-          onChange={this.setCode}
-        />
-        <div className={classes.buttonContainer}>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            endIcon={<Icon>compare_arrows</Icon>}
-          >
-            Converter e Salvar
-          </Button>
-        </div>
-        <TextField
-          id="message"
-          label="Mensagem de texto"
-          variant="filled"
-          multiline={true}
-          rows={4}
-          inputProps={{ maxLength: 255 }}
-          value={message}
-          onChange={this.setMessage}
-        />
-      </form>
+        Converter e Salvar
+      </Button>
+    </div>
+    <TextField
+      id="message"
+      label="Mensagem de texto"
+      variant="filled"
+      helperText={touched.message ? errors.message : ""}
+      error={!isValid}
+      value={message}
+      onChange={change.bind(null, "message")}
+      fullWidth
+      multiline={true}
+      rows={4}
+      inputProps={{ maxLength: 255 }}
+    />
+  </form>);
+}
+
+class Form extends Component {
+  render() {
+    const { value, onSubmit } = this.props;
+    return (
+      <Formik
+        enableReinitialize={true}
+        initialValues={value}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        {props => <MaterialForm {...props} />}
+      </Formik>
     );
   }
 }
 
-export default withStyles(classes)(Form);
+export default Form;
