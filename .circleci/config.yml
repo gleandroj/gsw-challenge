@@ -14,23 +14,23 @@ jobs:
     steps:
     - checkout
     - add_ssh_keys
-    - restore_cache:
-        keys:
-        - node-v1-{{ checksum "package.json" }}
-        - node-v1-
     - run:
         name: Npm Install
         command: npm install
-    - save_cache:
-        key: node-v1-{{ checksum "package.json" }}
-        paths:
-          - ./node_modules
+        working_directory: ~/repo/front
+    - run:
     - run:
         name: Build Frontend
         command: echo "TODO"
+        working_directory: ~/repo/front
     - run:
         name: Test Frontend
         command: echo "TODO"
+        working_directory: ~/repo/front
+    - run:
+        name: Npm Install
+        command: npm install
+        working_directory: ~/repo/api
     - run:
         name: Build Backend
         command: echo "TODO"
