@@ -12,8 +12,7 @@ describe("Example", () => {
         .request(app)
         .get("/")
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("object");
+          res.should.have.status(404);
           done();
         });
     });
