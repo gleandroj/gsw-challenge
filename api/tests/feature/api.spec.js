@@ -1,17 +1,17 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-import app from "../../src/index";
+import server from "../../src/index";
 
 chai.use(chaiHttp);
 chai.should();
 
-const expect = chai.expect;
+const { expect, request } = chai;
 
 describe("Convert Api", () => {
+
     describe("POST /convert", () => {
         it("should fails when code and message is not send", done => {
-            chai.request(app)
-                .post("/api/convert")
+            request(server).post("/api/convert")
                 .send({})
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -20,4 +20,5 @@ describe("Convert Api", () => {
                 });
         });
     });
+
 });
