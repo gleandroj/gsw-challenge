@@ -32,7 +32,7 @@ jobs:
         working_directory: ~/repo/api
     - run:
         name: Build Backend
-        command: npm run build -- --prod
+        command: npm run build
         working_directory: ~/repo/api
     - run:
         name: Test Backend
