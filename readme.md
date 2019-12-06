@@ -6,6 +6,16 @@
 
 - https://gsw-challenge-app.herokuapp.com/
 
+
+### TODO
+
+- API: Add mongose
+- API: Create SMS convert service / Tests
+- API: Finish SMS convert Endpoint / Tests
+- Front: Create List of operations / Tests
+- Api: Create List of operations / Test
+- Add more front tests cases
+
 ### Desafio
 
 Concluir os seguintes cursos na freecodecamp, e mandar o print de conclusão: 
