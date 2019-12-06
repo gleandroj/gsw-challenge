@@ -6,11 +6,11 @@ jobs:
     - image: circleci/node:10.15.2
       environment:
         APP_ENV: testing
-    # - image: circleci/postgres:9.6
-    #   environment:
-    #     POSTGRES_DB: teste_db
-    #     POSTGRES_USER: teste_usuario
-    #     POSTGRES_PASSWORD: cG6uJNyPmvQ5AEs6Lx6X
+        MONGODB_URI: mongodb://forge:forge@localhost:27017/api
+    - image: circleci/mongo:3
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: forge
+        MONGO_INITDB_ROOT_PASSWORD: forge
     steps:
     - checkout
     - add_ssh_keys
