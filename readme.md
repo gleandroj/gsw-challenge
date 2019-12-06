@@ -2,6 +2,7 @@
 
 ### CI
 [*CircleCI*](https://circleci.com/gh/gleandroj/gsw-challenge)
+
 [![CircleCI](https://circleci.com/gh/gleandroj/gsw-challenge.svg?style=svg)](https://circleci.com/gh/gleandroj/gsw-challenge)
 
 ### Demo
