@@ -15,6 +15,8 @@
 - Front: Create List of operations / Tests
 - Api: Create List of operations / Test
 - Add more front tests cases
+- Add coverage reports
+- Check coverage reports
 
 ### Desafio
 
