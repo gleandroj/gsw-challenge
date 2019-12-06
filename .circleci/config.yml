@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-    - image: circleci/node:7.10
+    - image: circleci/node:10.15.2
       environment:
         APP_ENV: testing
     # - image: circleci/postgres:9.6
@@ -24,7 +24,7 @@ jobs:
         working_directory: ~/repo/front
     - run:
         name: Test Frontend
-        command: export CI=true && node_modules/.bin/react-scripts test --env=jsdom
+        command: export CI=true && npm run test -- --env=jsdom
         working_directory: ~/repo/front
     - run:
         name: Npm Install Api
@@ -41,7 +41,7 @@ jobs:
   deployment:
     working_directory: ~/repo
     docker:
-    - image: circleci/node:7.10
+    - image: circleci/node:10.15.2
     environment:
       BASH_ENV: ~/.bashrc
       HEROKU_APP_NAME: "gsw-challenge-app"
