@@ -1,5 +1,7 @@
 ### Instruções
 
+### CI
+[*CircleCI*](https://circleci.com/gh/gleandroj/gsw-challenge)
 [![CircleCI](https://circleci.com/gh/gleandroj/gsw-challenge.svg?style=svg)](https://circleci.com/gh/gleandroj/gsw-challenge)
 
 ### Demo
@@ -9,7 +11,6 @@
 
 ### TODO
 
-- API: Add mongose
 - API: Create SMS convert service / Tests
 - API: Finish SMS convert Endpoint / Tests
 - Front: Create List of operations / Tests
@@ -17,6 +18,17 @@
 - Add more front tests cases
 - Add coverage reports
 - Check coverage reports
+
+### Development
+
+1. Running Api Project:
+    - npm install --prefix api
+    - export MONGODB_URI="mongodb://admin:mypass@localhost:27017/admin"
+    - npm run dev --prefix api
+
+2. Running Front Project:
+    - npm install --prefix front
+    - npm start --prefix front
 
 ### Desafio
 
