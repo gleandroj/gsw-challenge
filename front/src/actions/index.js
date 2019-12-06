@@ -1,7 +1,9 @@
 import { FETCH_CONVERT_PENDING, FETCH_CONVERT_SUCCESS, FETCH_CONVERT_ERROR } from "./actionTypes";
 
-const convertValuesPending = () => ({
-  type: FETCH_CONVERT_PENDING
+const convertValuesPending = ({ code, message }) => ({
+  type: FETCH_CONVERT_PENDING,
+  code,
+  message
 });
 
 const convertValuesSuccess = ({ message, code }) => ({
@@ -23,7 +25,7 @@ const API_URL = `${PREFIX}/api/convert`;
 
 export const convertValues = ({ code, message }) => {
   return dispatch => {
-    dispatch(convertValuesPending());
+    dispatch(convertValuesPending({ code, message }));
 
     fetch(API_URL, {
       method: "POST",

@@ -18,6 +18,8 @@ export const convertReducer = (state = initialState, action) => {
     case FETCH_CONVERT_PENDING:
       return {
         ...state,
+        code: action.code,
+        message: action.message,
         pending: true
       };
     case FETCH_CONVERT_SUCCESS:
