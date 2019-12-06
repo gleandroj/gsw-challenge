@@ -24,7 +24,7 @@ jobs:
         working_directory: ~/repo/front
     - run:
         name: Test Frontend
-        command: CI=true node_modules/.bin/react-scripts test --env=jsdom
+        command: export CI=true && node_modules/.bin/react-scripts test --env=jsdom
         working_directory: ~/repo/front
     - run:
         name: Npm Install Api
