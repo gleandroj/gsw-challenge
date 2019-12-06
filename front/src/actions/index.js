@@ -10,7 +10,7 @@ const convertValuesSuccess = ({ message, code }) => ({
   message
 });
 
-const convertValuesError = () => ({
+const convertValuesError = ({}) => ({
   type: FETCH_CONVERT_ERROR,
   error: {
     message: "Oops! Algo deu errado."
@@ -35,7 +35,7 @@ export const convertValues = ({ code, message }) => {
     })
       .then(res => res.json())
       .then(res => dispatch(convertValuesSuccess(res)))
-      .catch(error => console.log(error));
+      .catch(error => dispatch(convertValuesError(error)));
 
   };
 };
