@@ -40,7 +40,7 @@ export const convertValues = ({ code, message }) => {
         } else {
           dispatch(convertValuesError(data));
         }
-      }).catch(error => dispatch(convertValuesError({ error: error instanceof Error ? error.message : "Oops, algo de errado!" })));
+      }).catch(error => dispatch(convertValuesError({ error: error && error.message || "Oops, algo de errado!" })));
 
   };
 };
