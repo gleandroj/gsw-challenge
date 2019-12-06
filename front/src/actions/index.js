@@ -10,7 +10,7 @@ const convertValuesSuccess = ({ message, code }) => ({
   message
 });
 
-const convertValuesError = ({}) => ({
+const convertValuesError = () => ({
   type: FETCH_CONVERT_ERROR,
   error: {
     message: "Oops! Algo deu errado."
