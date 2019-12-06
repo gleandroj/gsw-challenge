@@ -44,7 +44,7 @@ const classes = theme => ({
 
 class App extends Component {
   render() {
-    const { classes, convertValues, pending, ...formValue } = this.props;
+    const { classes, convertValues, pending, error, ...formValue } = this.props;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -52,7 +52,7 @@ class App extends Component {
           <Container maxWidth="lg" className={classes.container}>
             <Paper className={classes.paper}>
               <TopBar />
-              <Form onSubmit={convertValues} value={formValue} />
+              <Form onSubmit={convertValues} error={error} value={formValue} />
               {
                 pending ? <div className={classes.loadingContainer}>
                   <CircularProgress />

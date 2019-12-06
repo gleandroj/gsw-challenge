@@ -43,7 +43,8 @@ const MaterialForm = (props) => {
     handleSubmit,
     handleChange,
     isValid,
-    setFieldTouched
+    setFieldTouched,
+    error
   } = props;
 
   const classes = useStyle();
@@ -65,7 +66,7 @@ const MaterialForm = (props) => {
       label="Código"
       variant="filled"
       helperText={touched.code ? errors.code : ""}
-      error={!isValid}
+      error={!isValid || !!error}
       value={code}
       onChange={change.bind(null, "code")}
       fullWidth
@@ -87,8 +88,8 @@ const MaterialForm = (props) => {
       id="message"
       label="Mensagem de texto"
       variant="filled"
-      helperText={touched.message ? errors.message : ""}
-      error={!isValid}
+      helperText={touched.message ? errors.message : (error ? error : "")}
+      error={!isValid || !!error}
       value={message}
       onChange={change.bind(null, "message")}
       fullWidth
@@ -101,7 +102,7 @@ const MaterialForm = (props) => {
 
 class Form extends Component {
   render() {
-    const { value = {}, onSubmit } = this.props;
+    const { value = {}, onSubmit, error } = this.props;
     return (
       <Formik
         enableReinitialize={true}
@@ -109,7 +110,7 @@ class Form extends Component {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {props => <MaterialForm {...props} />}
+        {props => <MaterialForm {...props} error={error} />}
       </Formik>
     );
   }

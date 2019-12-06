@@ -12,11 +12,9 @@ const convertValuesSuccess = ({ message, code }) => ({
   message
 });
 
-const convertValuesError = () => ({
+const convertValuesError = ({ error }) => ({
   type: FETCH_CONVERT_ERROR,
-  error: {
-    message: "Oops! Algo deu errado."
-  }
+  error: error
 });
 
 
@@ -35,9 +33,14 @@ export const convertValues = ({ code, message }) => {
       },
       body: JSON.stringify({ code, message })
     })
-      .then(res => res.json())
-      .then(res => dispatch(convertValuesSuccess(res)))
-      .catch(error => dispatch(convertValuesError(error)));
+      .then(async res => {
+        const data = await res.json();
+        if (res.ok) {
+          dispatch(convertValuesSuccess(data));
+        } else {
+          dispatch(convertValuesError(data));
+        }
+      }).catch(error => dispatch(convertValuesError({ error: error instanceof Error ? error.message : "Oops, algo de errado!" })));
 
   };
 };
