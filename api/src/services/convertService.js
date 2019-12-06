@@ -1,39 +1,81 @@
+const table = {
+    "A": "2",
+    "B": "22",
+    "C": "222",
+    "D": "3",
+    "E": "33",
+    "F": "333",
+    "G": "4",
+    "H": "44",
+    "I": "444",
+    "J": "5",
+    "K": "55",
+    "L": "555",
+    "M": "6",
+    "N": "66",
+    "O": "666",
+    "P": "7",
+    "Q": "77",
+    "R": "777",
+    "S": "7777",
+    "T": "8",
+    "U": "88",
+    "V": "888",
+    "W": "9",
+    "X": "99",
+    "Y": "999",
+    "Z": "9999",
+    " ": "0"
+};
 
-const codeTable = ["2", "22", "222", "3", "33", "333",
-    "4", "44", "444", "5", "55", "555",
-    "6", "66", "666", "7", "77", "777", "7777",
-    "8", "88", "888", "9", "99", "999", "9999"];
+const tableKeys = Object.keys(table);
+
+const separator = "_";
 
 export default class ConverService {
     constructor() { }
 
-    static convert(table, input) {
-        input = input.toUpperCase();
+    static codeToMessage(code) {
+        const input = code.toLowerCase();
         let output = "";
-        const separator = "_";
-        const n = input.length;
-        for (let i = 0; i < n; i++) {
-            if (input[i] == ' ')
-                output = output + "0";
-            else {
-                const position = input[i].charCodeAt(0) - 'A'.charCodeAt(0);
-                const endChar = output.charAt(output.length - 1);
-                const code = arr[position];
-                if (endChar === code.charAt(0)) {
-                    output = output.concat(separator)
-                }
-                output = output.concat(code);
+        let charCode = "";
+
+        for (let i = 0; i <= input.length; i++) {
+            const nCode = input.charAt(i);
+            const lnCode = charCode.charAt(charCode.length - 1);
+
+            if (lnCode != '' && (nCode != lnCode || nCode == separator)) {
+                const char = tableKeys.find(key => table[key] === charCode);
+                charCode = "";
+                output = output.concat(char);
+
+                if (nCode === separator) continue;
             }
+
+            charCode = charCode.concat(nCode);
         }
+
         return output;
     }
 
-    static codeToMessage(code) {
-        console.log(code);
-    }
-
     static messageToCode(message) {
-        console.log(message);
+        const input = message.toUpperCase();
+        let output = "";
+
+        for (let i = 0; i < input.length; i++) {
+            const key = input.charAt(i);
+            const code = table[key];
+            const fCode = code.charAt(0);
+            const lCode = output.charAt(output.length - 1);
+
+            if (fCode === lCode) {
+                output = output.concat(separator);
+            }
+
+            output = output.concat(code);
+        }
+
+        return output;
     }
 
 }
