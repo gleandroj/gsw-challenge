@@ -17,7 +17,7 @@ const classes = theme => ({
   }
 });
 
-export default withStyles(classes)(({ classes }) => (
+export default withStyles(classes)(({ classes, title }) => (
   <AppBar position="relative" elevation={0} className={classes.appBar}>
     <Toolbar>
       <Typography
@@ -27,7 +27,7 @@ export default withStyles(classes)(({ classes }) => (
         noWrap
         className={classes.title}
       >
-        SMS
+        {title}
       </Typography>
     </Toolbar>
   </AppBar>
