@@ -18,9 +18,7 @@ describe("ConvertService", () => {
     });
 
     it("when calls with invalid input 'TESTE 123' should returns ''", () => {
-      expect(service.messageToCode("TESTE 123")).to.be.equals(
-        ""
-      );
+      expect(service.messageToCode("TESTE 123")).to.be.equals("");
     });
   });
 
@@ -67,6 +65,28 @@ describe("ConvertService", () => {
       expect(code).to.be.eq(outputCode);
       expect(message).to.be.eq(inputMessage);
       expect(saveStub.callCount).to.be.eq(2);
+    });
+  });
+
+  describe("paginate", () => {
+    let findStub = null;
+    const returns = [{ _id: "id", code: "code", message: "message" }];
+    before(function() {
+      findStub = sinon.stub(Conversion, "find").callsFake(() => {
+        return {
+          sort: sinon.stub().returnsThis(),
+          skip: sinon.stub().returnsThis(),
+          limit: sinon.stub().resolves(returns)
+        };
+      });
+    });
+
+    it("when calls paginate() it should calls Conversion.find()", async () => {
+      expect(
+        await service.paginate({ page: 1, perPage: 5 })
+      ).to.be.equal(returns);
+
+      expect(findStub.callCount).to.be.equal(1);
     });
   });
 });

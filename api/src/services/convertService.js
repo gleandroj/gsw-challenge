@@ -103,6 +103,13 @@ export class ConverService {
 
     return await new Conversion(conversion).save();
   }
+
+  async paginate({ page, perPage }) {
+    return await Conversion.find()
+      .sort("_id")
+      .skip(page * perPage)
+      .limit(perPage);
+  }
 }
 
 export default new ConverService();
