@@ -91,20 +91,6 @@ const MaterialForm = (props) => {
       noValidate
       autoComplete="off"
     >
-      {/* <TextField
-        id="code"
-        label="Código"
-        variant="filled"
-        inputProps={{ style: { textTransform: 'uppercase' } }}
-        helperText={touched.code ? errors.code : ""}
-        error={!isValid || !!error}
-        value={code}
-        onChange={change.bind(null, "code")}
-        fullWidth
-        multiline={true}
-        rows={4}
-      /> */}
-
       <TextField
         id="code"
         label="Código"
@@ -115,8 +101,6 @@ const MaterialForm = (props) => {
         value={code}
         onChange={change.bind(null, "code")}
         fullWidth
-        multiline={true}
-        rows={4}
         InputProps={{
           inputComponent: TextMaskCustom,
         }}
