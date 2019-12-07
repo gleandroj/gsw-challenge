@@ -15,6 +15,9 @@ jobs:
       - checkout
       - add_ssh_keys
       - run:
+          name: Waiting for Mongo
+          command: dockerize -wait tcp://localhost:27017 -timeout 1m
+      - run:
           name: Npm Install
           command: npm install
           working_directory: ~/repo/front
