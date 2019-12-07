@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./src/index.js",
-    "test": "./node_modules/.bin/mocha --require @babel/register ./tests/**/*.js --exit",
+    "test": "./node_modules/.bin/mocha --timeout 10000 --require @babel/register ./tests/**/*.js --exit",
     "coverage": "nyc --report=html --report=text mocha --require @babel/register ./tests/**/*.js --exit",
     "dev": "./node_modules/.bin/nodemon --exec babel-node --presets @babel/preset-env ./src/index.js",
     "server:prod": "node ./dist/index.js",

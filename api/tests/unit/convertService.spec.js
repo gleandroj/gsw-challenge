@@ -40,12 +40,11 @@ describe("ConvertService", () => {
       saveStub = sinon.stub(Conversion.prototype, "save").returnsThis();
     });
 
-    it("when calls convert() without params should throw error", async done => {
+    it("when calls convert() without params should throw error", () => {
       expect(service.convert({})).to.eventually.be.rejectedWith(Error);
-      done();
     });
 
-    it("when calls convert() with code should return code and message", async done => {
+    it("when calls convert() with code should return code and message", async () => {
       const inputCode = "833777783303_33063377772";
       const outputMessage = "TESTE DE MESA";
       const { message, code } = await service.convert({
@@ -54,10 +53,9 @@ describe("ConvertService", () => {
       expect(code).to.be.eq(inputCode);
       expect(message).to.be.eq(outputMessage);
       expect(saveStub.callCount).to.be.eq(1);
-      done();
     });
 
-    it("when calls convert() with message should return a code and message", async done => {
+    it("when calls convert() with message should return a code and message", async () => {
       const inputMessage = "TESTE DE MESA";
       const outputCode = "833777783303_33063377772";
       const { message, code, _id } = await service.convert({
@@ -67,7 +65,6 @@ describe("ConvertService", () => {
       expect(code).to.be.eq(outputCode);
       expect(message).to.be.eq(inputMessage);
       expect(saveStub.callCount).to.be.eq(2);
-      done();
     });
   });
 
@@ -84,13 +81,11 @@ describe("ConvertService", () => {
       });
     });
 
-    it("when calls paginate() it should calls Conversion.find()", async done => {
+    it("when calls paginate() it should calls Conversion.find()", async () => {
       expect(await service.paginate({ page: 1, perPage: 5 })).to.be.equal(
         returns
       );
-
       expect(findStub.callCount).to.be.equal(1);
-      done();
     });
   });
 });
