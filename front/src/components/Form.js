@@ -37,7 +37,7 @@ const validationSchema = Yup.object({
 
 const mask = (input) => {
   const digitReg = /[2-9]|[0]/;
-  const underReg = /\_/;
+  const underReg = /_/;
 
   return input.split('').map((char, index) => {
     if (digitReg.test(char)) {
