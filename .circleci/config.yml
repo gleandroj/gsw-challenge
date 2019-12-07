@@ -6,7 +6,7 @@ jobs:
       - image: circleci/node:10.15.2
         environment:
           APP_ENV: testing
-          MONGODB_URI: mongodb://forge:forge@localhost:27017/api
+          MONGODB_URI: mongodb://forge:forge@localhost:27017/admin
       - image: circleci/mongo:3
         environment:
           MONGO_INITDB_ROOT_USERNAME: forge
