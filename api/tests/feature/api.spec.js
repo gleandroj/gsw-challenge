@@ -13,7 +13,6 @@ describe("Convert Api", () => {
         .post("/api/convert")
         .send({})
         .end((err, res) => {
-          console.log(res.status);
           expect(res.status, "bad request").to.be.eq(400);
           expect(res.body, "body error").to.haveOwnProperty("error");
           done();
