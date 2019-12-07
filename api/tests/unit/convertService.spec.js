@@ -1,7 +1,6 @@
 import chai from "chai";
 import ConvertService from "../../src/services/convertService";
 
-chai.should();
 const expect = chai.expect;
 
 describe("ConvertService", () => {
