@@ -33,7 +33,7 @@ const tableKeys = Object.keys(table);
 const separator = "_";
 
 export class ConverService {
-  constructor() { }
+  constructor() {}
 
   codeToMessage(code) {
     const input = code.toLowerCase();
@@ -47,7 +47,7 @@ export class ConverService {
       if (lnCode != "" && (nCode != lnCode || nCode == separator)) {
         const char = tableKeys.find(key => table[key] === charCode);
         charCode = "";
-        output = output.concat(char);
+        output = output.concat(char || "");
 
         if (nCode === separator) continue;
       }
@@ -65,6 +65,11 @@ export class ConverService {
     for (let i = 0; i < input.length; i++) {
       const key = input.charAt(i);
       const code = table[key];
+
+      if (!code) {
+        return "";
+      }
+
       const fCode = code.charAt(0);
       const lCode = output.charAt(output.length - 1);
 

@@ -16,6 +16,12 @@ describe("ConvertService", () => {
         "833777783303_33063377772"
       );
     });
+
+    it("when calls with invalid input 'TESTE 123' should returns ''", () => {
+      expect(service.messageToCode("TESTE 123")).to.be.equals(
+        ""
+      );
+    });
   });
 
   describe("codeToMessage", () => {
@@ -23,6 +29,10 @@ describe("ConvertService", () => {
       expect(service.codeToMessage("833777783303_33063377772")).to.be.equals(
         "TESTE DE MESA"
       );
+    });
+
+    it("when calls with invalid input '8888' without '_' should returns ''", () => {
+      expect(service.codeToMessage("8888")).to.be.equals("");
     });
   });
 
