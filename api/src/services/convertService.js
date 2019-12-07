@@ -33,7 +33,7 @@ const tableKeys = Object.keys(table);
 const separator = "_";
 
 export class ConverService {
-  constructor() {}
+  constructor() { }
 
   codeToMessage(code) {
     const input = code.toLowerCase();

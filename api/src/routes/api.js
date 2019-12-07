@@ -1,7 +1,8 @@
 import { Router } from "express";
+import converService from "../services/convertService";
 const router = Router();
 
-router.post("/convert", (req, res, next) => {
+router.post("/convert", async (req, res, next) => {
   const { code, message } = req.body;
 
   if (!code && !message) {
@@ -10,7 +11,7 @@ router.post("/convert", (req, res, next) => {
       error: "O campo mensagem é obrigatório quando o código não está presente."
     });
   } else {
-    res.json({ code: "passou aqui code", message: "passou aqui message" });
+    res.json(await converService.convert({ message, code }));
   }
 });
 
