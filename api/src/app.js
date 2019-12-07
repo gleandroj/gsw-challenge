@@ -14,10 +14,10 @@ export default class Application {
     this.public_dir = "public";
     this.app = express();
     this.isDev = this.app.get("env") === "development";
+    this.configure();
   }
 
-  async boostrap() {
-    await connectDb();
+  configure() {
     this.app.use(logger("dev"));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
@@ -71,5 +71,9 @@ export default class Application {
       this.port,
       console.log.apply(`App listening on port: ${this.port}`)
     );
+  }
+
+  async boostrap() {
+    await connectDb();
   }
 }
