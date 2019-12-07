@@ -3,14 +3,14 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: circleci/mongo:3
-        environment:
-          MONGO_INITDB_ROOT_USERNAME: forge
-          MONGO_INITDB_ROOT_PASSWORD: forge
       - image: circleci/node:10.15.2
         environment:
           APP_ENV: testing
           MONGODB_URI: mongodb://forge:forge@localhost:27017/api
+      - image: circleci/mongo:3
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: forge
+          MONGO_INITDB_ROOT_PASSWORD: forge
     steps:
       - checkout
       - add_ssh_keys
