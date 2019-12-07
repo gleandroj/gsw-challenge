@@ -1,3 +1,5 @@
+import { Conversion } from "../models";
+
 const table = {
   A: "2",
   B: "22",
@@ -27,13 +29,13 @@ const table = {
   Z: "9999",
   " ": "0"
 };
-
 const tableKeys = Object.keys(table);
-
 const separator = "_";
 
-export default class ConverService {
-  static codeToMessage(code) {
+export class ConverService {
+  constructor() {}
+
+  codeToMessage(code) {
     const input = code.toLowerCase();
     let output = "";
     let charCode = "";
@@ -56,7 +58,7 @@ export default class ConverService {
     return output;
   }
 
-  static messageToCode(message) {
+  messageToCode(message) {
     const input = message.toUpperCase();
     let output = "";
 
@@ -75,4 +77,27 @@ export default class ConverService {
 
     return output;
   }
+
+  async convert({ code, message }) {
+    if (!code && !message) {
+      throw new Error(
+        "O campo mensagem é obrigatório quando o código não está presente."
+      );
+    }
+
+    const conversion = {
+      code: code,
+      message: message
+    };
+
+    if (code) {
+      conversion.message = this.codeToMessage(code);
+    } else {
+      conversion.code = this.messageToCode(message);
+    }
+
+    return await new Conversion(conversion).save();
+  }
 }
+
+export default new ConverService();
