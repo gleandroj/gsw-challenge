@@ -7,6 +7,27 @@ chai.use(chaiHttp);
 const { expect, request } = chai;
 
 describe("Convert Api", () => {
+  describe("GET /convert", () => {
+    it("should returns array of conversions", done => {
+      request(server)
+        .get("/api/convert")
+        .end((err, res) => {
+          expect(res.status, "ok").to.be.eq(200);
+          expect(res.body, "body error").to.a("array");
+          done();
+        });
+    });
+    it("should returns array of conversions when called with page and perPage", done => {
+      request(server)
+        .get("/api/convert")
+        .send({ page: 1, perPage: 5 })
+        .end((err, res) => {
+          expect(res.status, "ok").to.be.eq(200);
+          expect(res.body, "body error").to.a("array");
+          done();
+        });
+    });
+  });
   describe("POST /convert", () => {
     it("should fails when code and message is not send", done => {
       request(server)
