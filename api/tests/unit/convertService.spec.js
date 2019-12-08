@@ -70,22 +70,28 @@ describe("ConvertService", () => {
 
   describe("paginate", () => {
     let findStub = null;
-    const returns = [{ _id: "id", code: "code", message: "message" }];
+    const data = [{ _id: "id", code: "code", message: "message" }];
     before(function() {
       findStub = sinon.stub(Conversion, "find").callsFake(() => {
         return {
           sort: sinon.stub().returnsThis(),
           skip: sinon.stub().returnsThis(),
-          limit: sinon.stub().resolves(returns)
+          limit: sinon.stub().resolves(data),
+          countDocuments: sinon.stub().resolves(1)
         };
       });
     });
 
     it("when calls paginate() it should calls Conversion.find()", async () => {
-      expect(await service.paginate({ page: 1, perPage: 5 })).to.be.equal(
-        returns
-      );
-      expect(findStub.callCount).to.be.equal(1);
+      const result = await service.paginate({ page: 1, perPage: 5 });
+      console.log(result);
+      expect(result).to.a("object");
+      expect(result).to.haveOwnProperty("data");
+      expect(result).to.haveOwnProperty("perPage");
+      expect(result).to.haveOwnProperty("page");
+      expect(result).to.haveOwnProperty("total");
+      expect(result.data).to.be.a("array");
+      expect(findStub.callCount).to.be.equal(2);
     });
   });
 });
