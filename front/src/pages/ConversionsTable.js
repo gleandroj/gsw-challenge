@@ -29,7 +29,7 @@ class ConversionsTable extends Component {
   };
 
   render() {
-    const { classes, pending, error, rows, page, perPage, total } = this.props;
+    const { classes, pending, rows, page, perPage, total } = this.props;
     return (
       <Paper className={classes.paper}>
         <TopBar title="Histórico" />
