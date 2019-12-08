@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators, compose } from "redux";
-import { convertValues } from "./actions";
+import { addConversion } from "./actions";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -69,7 +69,7 @@ const rows = [
 
 class App extends Component {
   render() {
-    const { classes, convertValues, pending, error, ...formValue } = this.props;
+    const { classes, addConversion, pending, error, ...formValue } = this.props;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -79,7 +79,7 @@ class App extends Component {
               <Paper className={classes.paper}>
                 <TopBar title="Conversão" />
                 <Form
-                  onSubmit={convertValues}
+                  onSubmit={addConversion}
                   error={error}
                   value={formValue}
                 />
@@ -107,14 +107,14 @@ class App extends Component {
 }
 
 const mapStateToProps = store => ({
-  code: store.convertState.code,
-  message: store.convertState.message,
-  pending: store.convertState.pending,
-  error: store.convertState.error
+  code: store.conversionState.code,
+  message: store.conversionState.message,
+  pending: store.conversionState.pending,
+  error: store.conversionState.error
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ convertValues }, dispatch);
+  bindActionCreators({ addConversion }, dispatch);
 
 export default compose(
   withStyles(classes),
