@@ -69,9 +69,16 @@ export const conversionsReducer = (state = conversionsInitialState, action) => {
     case FETCH_CONVERSIONS_SUCCESS:
       return {
         ...state,
-        ...action.data,
+        data: action.data,
+        total: action.total,
         pending: false,
         error: null
+      };
+    case ADD_CONVERSION_SUCCESS:
+      return {
+        ...state,
+        data: [action.payload, ...state.data].slice(0, state.perPage),
+        total: state.total + 1
       };
     default:
       return state;
