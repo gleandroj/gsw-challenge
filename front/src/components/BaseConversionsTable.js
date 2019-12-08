@@ -37,7 +37,7 @@ class BaseConversionsTable extends Component {
   };
 
   render() {
-    const { classes, rows = [], page, perPage, total } = this.props;
+    const { classes, rows = [], page = 0, perPage = 5, total = 0 } = this.props;
     const emptyRows = rows.length === 0;
 
     return (
