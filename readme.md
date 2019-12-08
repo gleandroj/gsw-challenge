@@ -13,9 +13,9 @@
 ### TODO
 
 - API: documentar usando swagger
-- Front: Create List of conversions / Tests
-- Add more front tests cases
-- Add front coverage reports
+- Front: add required props type
+- Front: Add more tests cases
+- Front: Add coverage reports
 
 ### Development
 
