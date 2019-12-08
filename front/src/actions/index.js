@@ -18,10 +18,15 @@ const addConversionPending = ({ code, message }) => ({
   message
 });
 
-const addConversionSuccess = ({ message, code }) => ({
+const addConversionSuccess = ({ _id, message, code }) => ({
   type: ADD_CONVERSION_SUCCESS,
   code,
-  message
+  message,
+  payload: {
+    _id,
+    message,
+    code
+  }
 });
 
 const addConversionError = ({ error }) => ({
@@ -63,8 +68,10 @@ const fetchConversionsPending = ({ page, perPage }) => ({
   perPage
 });
 
-const fetchConversionsSuccess = ({}) => ({
-  type: FETCH_CONVERSIONS_SUCCESS
+const fetchConversionsSuccess = ({ data, total }) => ({
+  type: FETCH_CONVERSIONS_SUCCESS,
+  data,
+  total
 });
 
 const fetchConversionsError = ({ error }) => ({
@@ -75,13 +82,14 @@ const fetchConversionsError = ({ error }) => ({
 export const fetchConversions = ({ page, perPage }) => dispatch => {
   dispatch(fetchConversionsPending({ page, perPage }));
 
-  fetch(API_URL, {
+  const params = new URLSearchParams({ page, perPage });
+
+  fetch(`${API_URL}?${params}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ page, perPage })
+    }
   })
     .then(async res => {
       const data = await res.json();
