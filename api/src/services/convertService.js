@@ -105,10 +105,15 @@ export class ConverService {
   }
 
   async paginate({ page, perPage }) {
-    return await Conversion.find()
-      .sort("_id")
-      .skip(page * perPage)
-      .limit(perPage);
+    return {
+      total: await Conversion.find().count(),
+      page: page,
+      perPage: perPage,
+      data: await Conversion.find()
+        .sort("_id")
+        .skip(page * perPage)
+        .limit(perPage)
+    };
   }
 }
 
