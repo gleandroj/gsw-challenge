@@ -4,7 +4,7 @@ const router = Router();
 
 const codeReg = /(([2-9]|[0])(\_)*)+/;
 
-router.post("/convert", async (req, res) => {
+router.post("/conversions", async (req, res) => {
   const { code, message } = req.body;
 
   if (!code && !message) {
@@ -22,8 +22,8 @@ router.post("/convert", async (req, res) => {
   }
 });
 
-router.get("/convert", async (req, res) => {
-  const { page = 1, perPage = 5 } = req.body;
+router.get("/conversions", async (req, res) => {
+  const { page = 0, perPage = 5 } = req.body;
   const conversions = await converService.paginate({ page, perPage });
   res.send(conversions);
 });
