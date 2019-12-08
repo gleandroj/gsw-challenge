@@ -84,7 +84,6 @@ describe("ConvertService", () => {
 
     it("when calls paginate() it should calls Conversion.find()", async () => {
       const result = await service.paginate({ page: 1, perPage: 5 });
-      console.log(result);
       expect(result).to.a("object");
       expect(result).to.haveOwnProperty("data");
       expect(result).to.haveOwnProperty("perPage");

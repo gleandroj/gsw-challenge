@@ -7,6 +7,7 @@ import cors from "cors";
 import indexRouter from "./routes/api";
 import { connectDb } from "./models";
 import { normalizePort } from "./helpers";
+import docsRouter from "./docs";
 
 export default class Application {
   constructor() {
@@ -24,6 +25,7 @@ export default class Application {
     this.app.use(cookieParser());
     this.app.use(cors());
     this.app.use(express.static(path.join(__dirname, this.public_dir)));
+    docsRouter(this.app);
     this.apiRoutes();
     this.app.use(this.catch404.bind(this));
     this.app.use(this.errorHandler.bind(this));
