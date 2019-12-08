@@ -1,4 +1,8 @@
-import { FETCH_CONVERT_PENDING, FETCH_CONVERT_SUCCESS, FETCH_CONVERT_ERROR } from "../actions/actionTypes";
+import {
+  ADD_CONVERSION_PENDING,
+  ADD_CONVERSION_SUCCESS,
+  ADD_CONVERSION_ERROR
+} from "../actions/actionTypes";
 
 const initialState = {
   code: "",
@@ -7,22 +11,22 @@ const initialState = {
   error: null
 };
 
-export const convertReducer = (state = initialState, action) => {
+export const conversionReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CONVERT_ERROR:
+    case ADD_CONVERSION_ERROR:
       return {
         ...state,
         pending: false,
         error: action.error
       };
-    case FETCH_CONVERT_PENDING:
+    case ADD_CONVERSION_PENDING:
       return {
         ...state,
         code: action.code,
         message: action.message,
         pending: true
       };
-    case FETCH_CONVERT_SUCCESS:
+    case ADD_CONVERSION_SUCCESS:
       return {
         ...state,
         code: action.code,
