@@ -3,7 +3,7 @@ import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import { TopBar, BaseConversionsTable } from "../components";
+import { TopBar, BaseConversionsTable, Loading } from "../components";
 import { fetchConversions } from "../actions";
 
 const classes = theme => ({
@@ -18,13 +18,28 @@ const classes = theme => ({
 });
 
 class ConversionsTable extends Component {
+  componentDidMount() {
+    const { fetchConversions, page, perPage } = this.props;
+    fetchConversions({ page, perPage });
+  }
+
+  onTableChange = ({ page, perPage }) => {
+    const { fetchConversions } = this.props;
+    fetchConversions({ page, perPage });
+  };
+
   render() {
-    const { classes, pending, error, ...other } = this.props;
-    console.log(other);
+    const { classes, pending, error, rows, page, perPage, total } = this.props;
     return (
       <Paper className={classes.paper}>
         <TopBar title="Histórico" />
-        <BaseConversionsTable />
+        <BaseConversionsTable
+          rows={rows}
+          page={page}
+          perPage={perPage}
+          total={total}
+          onChange={this.onTableChange}
+        />
         <Loading pending={pending} />
       </Paper>
     );
@@ -32,10 +47,12 @@ class ConversionsTable extends Component {
 }
 
 const mapStateToProps = store => ({
-  code: store.conversionState.code,
-  message: store.conversionState.message,
-  pending: store.conversionState.pending,
-  error: store.conversionState.error
+  rows: store.conversionsState.data,
+  total: store.conversionsState.total,
+  page: store.conversionsState.page,
+  perPage: store.conversionsState.perPage,
+  pending: store.conversionsState.pending,
+  error: store.conversionsState.error
 });
 
 const mapDispatchToProps = dispatch =>
