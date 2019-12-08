@@ -23,8 +23,11 @@ router.post("/conversions", async (req, res) => {
 });
 
 router.get("/conversions", async (req, res) => {
-  const { page = 0, perPage = 5 } = req.body;
-  const conversions = await converService.paginate({ page, perPage });
+  const { page = 0, perPage = 5 } = req.query;
+  const conversions = await converService.paginate({
+    page: parseInt(page),
+    perPage: parseInt(perPage)
+  });
   res.send(conversions);
 });
 
