@@ -25,25 +25,20 @@ const classes = theme => ({
 });
 
 class BaseConversionsTable extends Component {
-  state = {
-    page: 0,
-    rowsPerPage: 5
-  };
-
-  handleChangePage = (event, newPage) => {
-    console.log(`New page ${newPage}`);
+  handleChangePage = (event, page) => {
+    const { perPage, onChange } = this.props;
+    onChange({ perPage, page });
   };
 
   handleChangeRowsPerPage = event => {
-    console.log(`New rows per page ${parseInt(event.target.value, 10)}`);
+    const { page, onChange } = this.props;
+    const perPage = parseInt(event.target.value, 10);
+    onChange({ perPage, page });
   };
 
   render() {
-    const { classes } = this.props;
-    const { page, rowsPerPage, rows = [] } = this.state;
-
-    const emptyRows =
-      rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    const { classes, rows = [], page, perPage, total } = this.props;
+    const emptyRows = rows.length === 0;
 
     return (
       <div className={classes.tableWrapper}>
@@ -77,8 +72,8 @@ class BaseConversionsTable extends Component {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, { label: "Tudo", value: -1 }]}
                 colSpan={3}
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
+                count={total}
+                rowsPerPage={perPage}
                 page={page}
                 SelectProps={{
                   inputProps: { "aria-label": "Qtd. Itens" },
