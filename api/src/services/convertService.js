@@ -36,12 +36,11 @@ export class ConverService {
   constructor() {}
 
   codeToMessage(code) {
-    const input = code.toLowerCase();
     let output = "";
     let charCode = "";
 
-    for (let i = 0; i <= input.length; i++) {
-      const nCode = input.charAt(i);
+    for (let i = 0; i <= code.length; i++) {
+      const nCode = code.charAt(i);
       const lnCode = charCode.charAt(charCode.length - 1);
 
       if (lnCode != "" && (nCode != lnCode || nCode == separator)) {
@@ -59,11 +58,10 @@ export class ConverService {
   }
 
   messageToCode(message) {
-    const input = message.toUpperCase();
     let output = "";
 
-    for (let i = 0; i < input.length; i++) {
-      const key = input.charAt(i);
+    for (let i = 0; i < message.length; i++) {
+      const key = message.charAt(i);
       const code = table[key];
 
       if (!code) {
@@ -91,14 +89,14 @@ export class ConverService {
     }
 
     const conversion = {
-      code: code,
-      message: message
+      code: code && code.toUpperCase(),
+      message: message && message.toUpperCase()
     };
 
-    if (code) {
-      conversion.message = this.codeToMessage(code);
+    if (code && code.length) {
+      conversion.message = this.codeToMessage(conversion.code);
     } else {
-      conversion.code = this.messageToCode(message);
+      conversion.code = this.messageToCode(conversion.message);
     }
 
     return await new Conversion(conversion).save();
@@ -106,11 +104,11 @@ export class ConverService {
 
   async paginate({ page, perPage }) {
     return {
-      total: await Conversion.find().count(),
+      total: await Conversion.find().countDocuments(),
       page: page,
       perPage: perPage,
       data: await Conversion.find()
-        .sort("_id")
+        .sort({ _id: -1 })
         .skip(page * perPage)
         .limit(perPage)
     };
