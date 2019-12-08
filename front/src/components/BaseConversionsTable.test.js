@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ConversionTable from "./ConversionTable";
+import BaseConversionsTable from "./BaseConversionsTable";
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<ConversionTable />, div);
+  ReactDOM.render(<BaseConversionsTable />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

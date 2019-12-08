@@ -7,7 +7,7 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TablePaginationActions from "./TablePaginationActions";
-import { TableHead } from "@material-ui/core";
+import TableHead from "@material-ui/core/TableHead";
 
 const classes = theme => ({
   root: {
@@ -24,7 +24,7 @@ const classes = theme => ({
   }
 });
 
-class ConversionTable extends Component {
+class BaseConversionsTable extends Component {
   state = {
     page: 0,
     rowsPerPage: 5
@@ -100,4 +100,4 @@ class ConversionTable extends Component {
   }
 }
 
-export default withStyles(classes)(ConversionTable);
+export default withStyles(classes)(BaseConversionsTable);
