@@ -1,9 +1,9 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
-import { convertReducer } from "./convertReducer";
+import { conversionReducer } from "./conversionReducer";
 import thunk from 'redux-thunk';
 
 export const Reducers = combineReducers({
-  convertState: convertReducer
+  conversionState: conversionReducer
 });
 
 export default createStore(
