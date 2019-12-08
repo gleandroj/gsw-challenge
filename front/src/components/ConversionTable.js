@@ -7,6 +7,7 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TablePaginationActions from "./TablePaginationActions";
+import { TableHead } from "@material-ui/core";
 
 const classes = theme => ({
   root: {
@@ -17,32 +18,15 @@ const classes = theme => ({
   },
   tableWrapper: {
     overflowX: "auto"
+  },
+  emptyState: {
+    fontWeight: "bold"
   }
 });
 
-function createData(name, calories, fat) {
-  return { name, calories, fat };
-}
-
-const rows = [
-  createData("Cupcake", 305, 3.7),
-  createData("Donut", 452, 25.0),
-  createData("Eclair", 262, 16.0),
-  createData("Frozen yoghurt", 159, 6.0),
-  createData("Gingerbread", 356, 16.0),
-  createData("Honeycomb", 408, 3.2),
-  createData("Ice cream sandwich", 237, 9.0),
-  createData("Jelly Bean", 375, 0.0),
-  createData("KitKat", 518, 26.0),
-  createData("Lollipop", 392, 0.2),
-  createData("Marshmallow", 318, 0),
-  createData("Nougat", 360, 19.0),
-  createData("Oreo", 437, 18.0)
-];
-
 class ConversionTable extends Component {
   state = {
-    page: 1,
+    page: 0,
     rowsPerPage: 5
   };
 
@@ -56,46 +40,54 @@ class ConversionTable extends Component {
 
   render() {
     const { classes } = this.props;
-    const { page, rowsPerPage } = this.state;
+    const { page, rowsPerPage, rows = [] } = this.state;
 
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
       <div className={classes.tableWrapper}>
-        <Table className={classes.table} aria-label="custom pagination table">
+        <Table className={classes.table} aria-label="conversion table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">Código</TableCell>
+              <TableCell align="center">Mensagem</TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rows
-            ).map(row => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
+            {rows.map(row => (
+              <TableRow key={row._id}>
+                <TableCell align="center">{row.code}</TableCell>
+                <TableCell align="center">{row.message}</TableCell>
               </TableRow>
             ))}
 
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
+                <TableCell align="center" colSpan={6}>
+                  <span className={classes.emptyState}>
+                    Nenhuma conversão realizada.
+                  </span>
+                </TableCell>
               </TableRow>
             )}
           </TableBody>
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                rowsPerPageOptions={[5, 10, 25, { label: "Tudo", value: -1 }]}
                 colSpan={3}
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
-                  inputProps: { "aria-label": "rows per page" },
+                  inputProps: { "aria-label": "Qtd. Itens" },
                   native: true
                 }}
+                labelRowsPerPage="Qtd. Itens"
+                labelDisplayedRows={({ from, to, count }) =>
+                  `${from}-${to === -1 ? count : to} de ${count}`
+                }
                 onChangePage={this.handleChangePage}
                 onChangeRowsPerPage={this.handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
