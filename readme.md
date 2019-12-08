@@ -1,7 +1,8 @@
 ### Instruções
 
 ### CI
-[*CircleCI*](https://circleci.com/gh/gleandroj/gsw-challenge)
+
+[_CircleCI_](https://circleci.com/gh/gleandroj/gsw-challenge)
 
 [![CircleCI](https://circleci.com/gh/gleandroj/gsw-challenge.svg?style=svg)](https://circleci.com/gh/gleandroj/gsw-challenge)
 
@@ -9,31 +10,28 @@
 
 - https://gsw-challenge-app.herokuapp.com/
 
-
 ### TODO
 
-- API: Create SMS convert service / Tests
-- API: Finish SMS convert Endpoint / Tests
-- Front: Create List of operations / Tests
-- Api: Create List of operations / Test
+- API: documentar usando swagger
+- Front: Create List of conversions / Tests
 - Add more front tests cases
-- Add coverage reports
-- Check coverage reports
+- Add front coverage reports
 
 ### Development
 
 1. Running Api Project:
-    - npm install --prefix api
-    - export MONGODB_URI="mongodb://admin:mypass@localhost:27017/admin"
-    - npm run dev --prefix api
+
+   - npm install --prefix api
+   - export MONGODB_URI="mongodb://admin:mypass@localhost:27017/admin"
+   - npm run dev --prefix api
 
 2. Running Front Project:
-    - npm install --prefix front
-    - npm start --prefix front
+   - npm install --prefix front
+   - npm start --prefix front
 
 ### Desafio
 
-Concluir os seguintes cursos na freecodecamp, e mandar o print de conclusão: 
+Concluir os seguintes cursos na freecodecamp, e mandar o print de conclusão:
 
 [Introduction to Quality Assurance with Chai](https://www.freecodecamp.org/learn/information-security-and-quality-assurance/quality-assurance-and-testing-with-chai/)
 
@@ -44,7 +42,7 @@ Um dos serviços mais utilizados pelos usuários de aparelhos celulares são os 
 Para digitar uma mensagem em um aparelho que não possui um teclado QWERTY embutido é necessário fazer algumas combinações das 10 teclas numéricas do aparelho para conseguir digitar. Cada número é associado a um conjunto de letras como a seguir:
 
 | Letras | Número |
-|--------|--------|
+| ------ | ------ |
 | ABC    | 2      |
 | DEF    | 3      |
 | GHI    | 4      |
@@ -56,10 +54,11 @@ Para digitar uma mensagem em um aparelho que não possui um teclado QWERTY embut
 | Espaço | 0      |
 
 Desenvolva um programa que:
-1. Dada uma mensagem de texto limitada a 255 caracteres, retorne a seqüência de números que precisa ser digitada. 
+
+1. Dada uma mensagem de texto limitada a 255 caracteres, retorne a seqüência de números que precisa ser digitada.
 2. Dada uma sequencia de números retorne o texto
 
-Caso uma sequencia use a mesma tecla, deve ser usada “_” para separar.
+Caso uma sequencia use a mesma tecla, deve ser usada “\_” para separar.
 
 Por exemplo, para digitar "TESTE DE MESA", você precisa digitar:
 833777783303_33063377772
