@@ -12,13 +12,15 @@ const PREFIX =
 
 const API_URL = `${PREFIX}/api/conversions`;
 
-const addConversionPending = ({ code, message }) => ({
+const newError = (error) => ({ error: (error && error.message) || "Oops, algo de errado!" });
+
+export const addConversionPending = ({ code, message }) => ({
   type: ADD_CONVERSION_PENDING,
   code,
   message
 });
 
-const addConversionSuccess = ({ _id, message, code }) => ({
+export const addConversionSuccess = ({ _id, message, code }) => ({
   type: ADD_CONVERSION_SUCCESS,
   code,
   message,
@@ -29,7 +31,7 @@ const addConversionSuccess = ({ _id, message, code }) => ({
   }
 });
 
-const addConversionError = ({ error }) => ({
+export const addConversionError = ({ error }) => ({
   type: ADD_CONVERSION_ERROR,
   error: error
 });
@@ -37,44 +39,38 @@ const addConversionError = ({ error }) => ({
 export const addConversion = ({ code, message }) => dispatch => {
   dispatch(addConversionPending({ code, message }));
 
-  fetch(API_URL, {
+  return fetch(API_URL, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     },
     body: JSON.stringify({ code, message })
-  })
-    .then(async res => {
-      const data = await res.json();
-      if (res.ok) {
-        dispatch(addConversionSuccess(data));
-      } else {
-        dispatch(addConversionError(data));
-      }
-    })
-    .catch(error =>
-      dispatch(
-        addConversionError({
-          error: (error && error.message) || "Oops, algo de errado!"
-        })
-      )
-    );
+  }).then(async res => {
+    const data = await res.json();
+    if (res.ok) {
+      dispatch(addConversionSuccess(data));
+    } else {
+      dispatch(addConversionError(newError(data)));
+    }
+  }).catch(error => {
+    dispatch(addConversionError(newError(error)))
+  });
 };
 
-const fetchConversionsPending = ({ page, perPage }) => ({
+export const fetchConversionsPending = ({ page, perPage }) => ({
   type: FETCH_CONVERSIONS_PENDING,
   page,
   perPage
 });
 
-const fetchConversionsSuccess = ({ data, total }) => ({
+export const fetchConversionsSuccess = ({ data, total }) => ({
   type: FETCH_CONVERSIONS_SUCCESS,
   data,
   total
 });
 
-const fetchConversionsError = ({ error }) => ({
+export const fetchConversionsError = ({ error }) => ({
   type: FETCH_CONVERSIONS_ERROR,
   error: error
 });
@@ -84,26 +80,18 @@ export const fetchConversions = ({ page, perPage }) => dispatch => {
 
   const params = new URLSearchParams({ page, perPage });
 
-  fetch(`${API_URL}?${params}`, {
+  return fetch(`${API_URL}?${params}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     }
-  })
-    .then(async res => {
-      const data = await res.json();
-      if (res.ok) {
-        dispatch(fetchConversionsSuccess(data));
-      } else {
-        dispatch(fetchConversionsError(data));
-      }
-    })
-    .catch(error =>
-      dispatch(
-        fetchConversionsError({
-          error: (error && error.message) || "Oops, algo de errado!"
-        })
-      )
-    );
+  }).then(async res => {
+    const data = await res.json();
+    if (res.ok) {
+      dispatch(fetchConversionsSuccess(data));
+    } else {
+      dispatch(fetchConversionsError(newError(data)));
+    }
+  }).catch(error => dispatch(fetchConversionsError(newError(error))));
 };
