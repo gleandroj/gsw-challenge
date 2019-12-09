@@ -21,9 +21,7 @@ describe("BaseConversionsTable", () => {
   });
 
   it("renders without crashing", () => {
-    const div = document.createElement("div");
-    render(<BaseConversionsTable />, div);
-    unmountComponentAtNode(div);
+    render(<BaseConversionsTable />, container);
   });
 
   it("handle onchange when click pagination button", () => {
@@ -39,7 +37,9 @@ describe("BaseConversionsTable", () => {
     const button = document.querySelector('[aria-label="next page"]');
     expect(button.children[0].children[0].innerHTML).toBe("keyboard_arrow_right");
 
-    fireEvent.click(button);
+    act(() => {
+      fireEvent.click(button);
+    });
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toBeCalledWith({ page: 1, perPage });
@@ -73,7 +73,9 @@ describe("BaseConversionsTable", () => {
     });
 
     const select = document.querySelector('[aria-label="Qtd. Itens"]');
-    fireEvent.change(select, { target: { value: 10 } });
+    act(() => {
+      fireEvent.change(select, { target: { value: 10 } });
+    });
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toBeCalledWith({ page: 0, perPage: 10 });
