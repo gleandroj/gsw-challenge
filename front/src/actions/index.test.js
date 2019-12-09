@@ -15,7 +15,7 @@ import {
     fetchConversionsError,
 
 } from "./index";
-import { ADD_CONVERSION_ERROR, FETCH_CONVERSIONS_ERROR } from "./actionTypes";
+import { ADD_CONVERSION_ERROR, FETCH_CONVERSIONS_ERROR, ADD_CONVERSION_SUCCESS, FETCH_CONVERSIONS_SUCCESS } from "./actionTypes";
 
 global.fetch = jestFetch;
 const middlewares = [thunk];
@@ -25,7 +25,7 @@ describe("actions", () => {
 
     describe("addConversion", () => {
 
-        it('should add a conversion', async () => {
+        it(`should handle ${ADD_CONVERSION_SUCCESS}`, async () => {
 
             const store = mockStore({});
             const message = "GABRIEL";
@@ -44,7 +44,7 @@ describe("actions", () => {
 
         });
 
-        it(`should return dispatch ${ADD_CONVERSION_ERROR} when fetch returns nok`, async () => {
+        it(`should return handle ${ADD_CONVERSION_ERROR} when fetch returns nok`, async () => {
 
             const store = mockStore({});
             const message = "GABRIEL";
@@ -64,7 +64,7 @@ describe("actions", () => {
 
         });
 
-        it(`should return dispatch ${ADD_CONVERSION_ERROR} when fetch fails`, async () => {
+        it(`should return handle ${ADD_CONVERSION_ERROR} when fetch fails`, async () => {
 
             const store = mockStore({});
             const message = "GABRIEL";
@@ -88,7 +88,7 @@ describe("actions", () => {
 
     describe("fetchConversions", () => {
 
-        it('should fetch conversions', async () => {
+        it(`should handle ${FETCH_CONVERSIONS_SUCCESS}`, async () => {
 
             const store = mockStore({});
             const page = 0;
@@ -111,7 +111,7 @@ describe("actions", () => {
             expect(store.getActions()).toEqual(expectedActions);
         });
 
-        it(`should return dispatch ${FETCH_CONVERSIONS_ERROR} when fetch fails`, async () => {
+        it(`should return handle ${FETCH_CONVERSIONS_ERROR} when fetch fails`, async () => {
 
             const store = mockStore({});
             const page = 0;
@@ -130,7 +130,7 @@ describe("actions", () => {
 
         });
 
-        it(`should return dispatch ${FETCH_CONVERSIONS_ERROR} when fetch return nok`, async () => {
+        it(`should return handle ${FETCH_CONVERSIONS_ERROR} when fetch return nok`, async () => {
 
             const store = mockStore({});
             const page = 0;
