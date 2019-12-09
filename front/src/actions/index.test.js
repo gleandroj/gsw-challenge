@@ -1,4 +1,3 @@
-import React from "react";
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import expect from 'expect';
@@ -15,7 +14,13 @@ import {
     fetchConversionsError,
 
 } from "./index";
-import { ADD_CONVERSION_ERROR, FETCH_CONVERSIONS_ERROR, ADD_CONVERSION_SUCCESS, FETCH_CONVERSIONS_SUCCESS } from "./actionTypes";
+
+import {
+    ADD_CONVERSION_ERROR,
+    FETCH_CONVERSIONS_ERROR,
+    ADD_CONVERSION_SUCCESS,
+    FETCH_CONVERSIONS_SUCCESS
+} from "./actionTypes";
 
 global.fetch = jestFetch;
 const middlewares = [thunk];
