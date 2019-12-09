@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import ConversionsTable from "./ConversionsTable";
+import { FETCH_CONVERSIONS_PENDING } from "../actions/actionTypes";
 
 const mockStore = configureStore([
   thunk
@@ -30,6 +31,10 @@ describe("ConversionsTable", () => {
       </Provider>,
       div
     );
+
+    const expectedPayload = { type: FETCH_CONVERSIONS_PENDING, page: 0, perPage: 5 };
+    expect(store.getActions()).toEqual([expectedPayload]);
+
     ReactDOM.unmountComponentAtNode(div);
   });
 
