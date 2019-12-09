@@ -110,7 +110,7 @@ export class ConverService {
       data: await Conversion.find()
         .sort({ _id: -1 })
         .skip(page * perPage)
-        .limit(perPage)
+        .limit(perPage == -1 ? 0 : perPage)
     };
   }
 }
