@@ -1,5 +1,6 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
-import { conversionReducer, conversionsReducer } from "./conversionReducer";
+import { conversionReducer } from "./conversionReducer";
+import { conversionsReducer } from "./conversionsReducer";
 import thunk from "redux-thunk";
 
 export const Reducers = combineReducers({
