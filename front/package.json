@@ -47,7 +47,7 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "**/*.js",
+      "**/{!(serviceWork),}.js",
       "!<rootDir>/node_modules/"
     ],
     "coverageReporters": [
