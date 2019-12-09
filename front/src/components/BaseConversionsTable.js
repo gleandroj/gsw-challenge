@@ -14,10 +14,12 @@ const classes = theme => ({
     width: "100%"
   },
   table: {
-    minWidth: 500
+    minWidth: 500,
+    height: "calc(100% - 1px)"
   },
   tableWrapper: {
-    overflowX: "auto"
+    overflowX: "auto",
+    height: "100%"
   },
   emptyState: {
     fontWeight: "bold"
