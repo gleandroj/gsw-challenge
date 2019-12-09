@@ -17,8 +17,9 @@
   "scripts": {
     "start": "node_modules/.bin/react-scripts start",
     "build": "node_modules/.bin/react-scripts build",
-    "test": "node_modules/.bin/react-scripts test",
-    "eject": "node_modules/.bin/react-scripts eject"
+    "test": "node_modules/.bin/react-scripts test --watchAll=false",
+    "eject": "node_modules/.bin/react-scripts eject",
+    "test:coverage": "react-scripts test --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,5 +42,14 @@
     "react-test-renderer": "^16.12.0",
     "redux-mock-store": "^1.5.3",
     "regenerator-runtime": "^0.13.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!<rootDir>/node_modules/"
+    ],
+    "coverageReporters": [
+      "text"
+    ]
   }
 }
