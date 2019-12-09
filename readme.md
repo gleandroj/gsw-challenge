@@ -8,26 +8,22 @@
 
 ### Demo
 
-- https://gsw-challenge-app.herokuapp.com/
-
-### TODO
-
-- API: documentar usando swagger
-- Front: add required props type
-- Front: Add more tests cases
-- Front: Add coverage reports
+- Demo: https://gsw-challenge-app.herokuapp.com/
+- Api Docs: https://gsw-challenge-app.herokuapp.com/docs
 
 ### Development
 
 1. Running Api Project:
 
-   - npm install --prefix api
-   - export MONGODB_URI="mongodb://admin:mypass@localhost:27017/admin"
-   - npm run dev --prefix api
+   - Install packages: npm install --prefix api
+   - Export mongo db connection string: export MONGODB_URI="mongodb://admin:mypass@localhost:27017/admin"
+   - Start API: npm run dev --prefix api
+   - Run tests and Coverage: npm run coverage --prefix api
 
 2. Running Front Project:
-   - npm install --prefix front
-   - npm start --prefix front
+   - Install packages: npm install --prefix front
+   - Start front: npm start --prefix front
+   - Run tests and Coverage: npm run test:coverage --prefix front
 
 ### Desafio
 
